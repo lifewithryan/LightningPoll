@@ -1,0 +1,20 @@
+public class PollController {
+	@AuraEnabled
+    public static Poll_Question__c latestPoll() {
+        Poll_Question__c poll = [SELECT Id
+                                 , Name
+                                 , Subject__c
+                                 , Total_Votes__c
+                                 , Highest_Votes__c
+                                 , (SELECT Id, Vote_Count__c, Option_Name__c FROM Poll_Options__r)
+                                 FROM Poll_Question__c WHERE Status__c = 'Open' 
+                                 ORDER BY CreatedDate LIMIT 1];
+        System.debug('POLL:' + poll);
+        return poll;
+    }
+    
+    @AuraEnabled
+    public static String sessionId() {
+        return UserInfo.getSessionId();
+    }
+}

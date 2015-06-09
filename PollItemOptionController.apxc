@@ -1,0 +1,15 @@
+public class PollItemOptionController {
+	
+    @AuraEnabled
+    public static Integer incrementVote(String optionId) {
+        Poll_Option__c option = [SELECT Id, Vote_Count__c FROM Poll_Option__c WHERE ID = :optionId];
+        option.Vote_Count__c += 1;
+        update option;
+        return option.Vote_Count__c.intValue();
+    }
+    
+    @AuraEnabled
+    public static String wtf() {
+        return 'WTF';
+    }
+}

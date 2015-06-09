@@ -1,0 +1,21 @@
+<aura:component controller="PollOptionController">
+    
+    <ltng:require scripts="/resource/cometd,/resource/jquery151,/resource/json2,/resource/jquerycometd"
+                  afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+    
+    <aura:attribute name="pollOption" type="Poll_Option__c"/>
+    <aura:attribute name="pollOptionId" type="String" default="{!v.pollOption.Id}"/>
+    <aura:attribute name="position" type="String" />
+    <aura:attribute name="currentSessionId" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div style="border:1px solid black;margin:5px;padding:10px;text-align:center;border-radius:5px">
+        <ui:button aura:id="voteButton" label="{!v.pollOption.Option_Name__c}" press="{!c.voteItUp}"/>
+        <div style="float:right" class="findme" id="{!v.pollOption.Id}">
+            {!v.pollOption.Vote_Count__c}
+        </div>
+        <br/>
+        <ui:outputText aura:id="sessionId" class="hideme" value=""/>
+    </div>
+
+</aura:component>
